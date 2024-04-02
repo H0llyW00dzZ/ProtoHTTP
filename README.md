@@ -57,7 +57,13 @@ grpcurl -plaintext localhost:50051 list
 Call the `SayHello` method:
 
 ```sh
-grpcurl -plaintext -d '{}' localhost:50051 handler.HelloService/SayHello
+grpcurl -plaintext -d '{}' localhost:50051 redirect.HelloService/SayHello
+```
+
+Call the `SayHelloWithField` method:
+
+```sh
+grpcurl -plaintext -d '{"name": "Gopher"}' localhost:50051 redirect.HelloService/SayHelloWithField
 ```
 
 You should receive a response like:
