@@ -88,3 +88,7 @@ For `SayHelloWithField`:
 
 - `main.go`: Contains the server implementation and the entry point to start the server.
 - `/handler`: This directory contains the generated gRPC code from your `.proto` files.
+
+# Acknowledgment
+
+After I learning how Protocol Buffers work, it seems that Protocol Buffers have limitations. For example, you cannot use concurrency or manage flexibility with goroutines. It is recommended to use Protocol Buffers for projects such as real-time communication or end-to-end communication.
