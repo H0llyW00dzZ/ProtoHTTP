@@ -22,6 +22,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// HelloRequest is the request for a generic greeting.
 type HelloRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -60,13 +61,13 @@ func (*HelloRequest) Descriptor() ([]byte, []int) {
 	return file_handler_hello_world_proto_rawDescGZIP(), []int{0}
 }
 
-// A new HelloRequestWithField message that includes a name field.
+// HelloRequestWithField includes a name for personalized greetings.
 type HelloRequestWithField struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"` // The name of the person to greet.
 }
 
 func (x *HelloRequestWithField) Reset() {
@@ -108,7 +109,7 @@ func (x *HelloRequestWithField) GetName() string {
 	return ""
 }
 
-// The HelloResponse message with a oneof for success or error.
+// HelloResponse contains either a greeting message or an error.
 type HelloResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -179,11 +180,11 @@ type isHelloResponse_Result interface {
 }
 
 type HelloResponse_Message struct {
-	Message string `protobuf:"bytes,1,opt,name=message,proto3,oneof"`
+	Message string `protobuf:"bytes,1,opt,name=message,proto3,oneof"` // The greeting message on success.
 }
 
 type HelloResponse_Error struct {
-	Error *status.Status `protobuf:"bytes,2,opt,name=error,proto3,oneof"`
+	Error *status.Status `protobuf:"bytes,2,opt,name=error,proto3,oneof"` // The error status on failure.
 }
 
 func (*HelloResponse_Message) isHelloResponse_Result() {}

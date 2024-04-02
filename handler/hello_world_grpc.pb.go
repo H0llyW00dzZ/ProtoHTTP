@@ -27,9 +27,9 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type HelloServiceClient interface {
-	// The original SayHello method.
+	// SayHello returns a generic greeting.
 	SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloResponse, error)
-	// A new SayHelloWithField method that takes a name.
+	// SayHelloWithField returns a personalized greeting using the provided name.
 	SayHelloWithField(ctx context.Context, in *HelloRequestWithField, opts ...grpc.CallOption) (*HelloResponse, error)
 }
 
@@ -63,9 +63,9 @@ func (c *helloServiceClient) SayHelloWithField(ctx context.Context, in *HelloReq
 // All implementations must embed UnimplementedHelloServiceServer
 // for forward compatibility
 type HelloServiceServer interface {
-	// The original SayHello method.
+	// SayHello returns a generic greeting.
 	SayHello(context.Context, *HelloRequest) (*HelloResponse, error)
-	// A new SayHelloWithField method that takes a name.
+	// SayHelloWithField returns a personalized greeting using the provided name.
 	SayHelloWithField(context.Context, *HelloRequestWithField) (*HelloResponse, error)
 	mustEmbedUnimplementedHelloServiceServer()
 }

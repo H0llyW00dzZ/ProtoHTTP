@@ -8,15 +8,16 @@ import "google/rpc/status.proto";
 // Specify the Go package where the generated code will be placed.
 option go_package = "github.com/H0llyW00dzZ/ProtoHTTP/handler";
 
+// HelloService provides methods for greeting operations.
 service HelloService {
-  // The original SayHello method.
+  // SayHello returns a generic greeting.
   rpc SayHello (HelloRequest) returns (HelloResponse) {
     option (google.api.http) = {
       get: "/hello"
     };
   }
 
-  // A new SayHelloWithField method that takes a name.
+  // SayHelloWithField returns a personalized greeting using the provided name.
   rpc SayHelloWithField (HelloRequestWithField) returns (HelloResponse) {
     option (google.api.http) = {
       get: "/hello/{name}"
@@ -24,19 +25,20 @@ service HelloService {
   }
 }
 
+// HelloRequest is the request for a generic greeting.
 message HelloRequest {
 
 }
 
-// A new HelloRequestWithField message that includes a name field.
+// HelloRequestWithField includes a name for personalized greetings.
 message HelloRequestWithField {
-  string name = 1;
+  string name = 1; // The name of the person to greet.
 }
 
-// The HelloResponse message with a oneof for success or error.
+// HelloResponse contains either a greeting message or an error.
 message HelloResponse {
   oneof result {
-    string message = 1;
-    google.rpc.Status error = 2;
+    string message = 1; // The greeting message on success.
+    google.rpc.Status error = 2; // The error status on failure.
   }
 }
