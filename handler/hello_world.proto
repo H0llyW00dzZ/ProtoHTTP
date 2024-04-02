@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package redirect;
+
+import "google/api/annotations.proto";
+
+// Specify the Go package where the generated code will be placed.
+option go_package = "github.com/H0llyW00dzZ/ProtoHTTP/handler";
+
+service HelloService {
+  rpc SayHello (HelloRequest) returns (HelloResponse) {
+    option (google.api.http) = {
+      get: "/hello"
+    };
+  }
+}
+
+message HelloRequest {}
+
+message HelloResponse {
+  string message = 1;
+}
