@@ -74,6 +74,14 @@ You should receive a response like:
 }
 ```
 
+and
+
+```json
+{
+  "message": "Hello, Gopher!"
+}
+```
+
 ## Project Structure
 
 - `main.go`: Contains the server implementation and the entry point to start the server.
