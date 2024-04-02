@@ -68,13 +68,15 @@ grpcurl -plaintext -d '{"name": "Gopher"}' localhost:50051 redirect.HelloService
 
 You should receive a response like:
 
+For `SayHello`:
+
 ```json
 {
   "message": "Hello, World!"
 }
 ```
 
-and
+For `SayHelloWithField`:
 
 ```json
 {
