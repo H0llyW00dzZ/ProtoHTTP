@@ -7,7 +7,9 @@ import (
 
 	"github.com/H0llyW00dzZ/ProtoHTTP/handler"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/reflection"
+	"google.golang.org/grpc/status"
 )
 
 // helloServer implements the HelloServiceServer interface from the generated code.
@@ -17,7 +19,23 @@ type helloServer struct {
 
 // SayHello handles incoming HelloRequests and returns a HelloResponse.
 func (s *helloServer) SayHello(ctx context.Context, req *handler.HelloRequest) (*handler.HelloResponse, error) {
-	return &handler.HelloResponse{Message: "Hello, World!"}, nil
+	return &handler.HelloResponse{
+		Result: &handler.HelloResponse_Message{Message: "Hello, World!"},
+	}, nil
+}
+
+func (s *helloServer) SayHelloWithField(ctx context.Context, req *handler.HelloRequestWithField) (*handler.HelloResponse, error) {
+	if req.Name == "" {
+		st := status.New(codes.InvalidArgument, "Name field is required")
+		return &handler.HelloResponse{
+			Result: &handler.HelloResponse_Error{Error: st.Proto()},
+		}, nil
+	}
+
+	// If a name is provided, return a successful response.
+	return &handler.HelloResponse{
+		Result: &handler.HelloResponse_Message{Message: "Hello, " + req.Name + "!"},
+	}, nil
 }
 
 func main() {
@@ -27,7 +45,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	handler.RegisterHelloServiceServer(s, &helloServer{}) // Register the HelloService
+	handler.RegisterHelloServiceServer(s, &helloServer{}) // Register the HelloService with both methods
 
 	// Enable server reflection
 	reflection.Register(s)
