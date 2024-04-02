@@ -3,14 +3,23 @@ syntax = "proto3";
 package redirect;
 
 import "google/api/annotations.proto";
+import "google/rpc/status.proto";
 
 // Specify the Go package where the generated code will be placed.
 option go_package = "github.com/H0llyW00dzZ/ProtoHTTP/handler";
 
 service HelloService {
+  // The original SayHello method.
   rpc SayHello (HelloRequest) returns (HelloResponse) {
     option (google.api.http) = {
       get: "/hello"
+    };
+  }
+
+  // A new SayHelloWithField method that takes a name.
+  rpc SayHelloWithField (HelloRequestWithField) returns (HelloResponse) {
+    option (google.api.http) = {
+      get: "/hello/{name}"
     };
   }
 }
@@ -19,6 +28,15 @@ message HelloRequest {
 
 }
 
+// A new HelloRequestWithField message that includes a name field.
+message HelloRequestWithField {
+  string name = 1;
+}
+
+// The HelloResponse message with a oneof for success or error.
 message HelloResponse {
-  string message = 1;
+  oneof result {
+    string message = 1;
+    google.rpc.Status error = 2;
+  }
 }
