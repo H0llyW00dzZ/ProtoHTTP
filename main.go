@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"os"
+	"os/signal"
+	"syscall"
 	"time"
 
 	"github.com/H0llyW00dzZ/ProtoHTTP/handler"
@@ -81,8 +84,46 @@ func main() {
 	// Enable server reflection
 	reflection.Register(s)
 
+	// Start serving in a goroutine to allow shutdown to proceed in parallel
+	go startServer(s, lis)
+
+	// Wait for the server to shut down gracefully when an OS signal is received
+	waitForShutdown(s)
+}
+
+// Start the gRPC server and listen for incoming connections
+func startServer(s *grpc.Server, lis net.Listener) {
 	log.Println("Server started on port 50051")
-	if err := s.Serve(lis); err != nil {
+	if err := s.Serve(lis); err != nil && err != grpc.ErrServerStopped {
 		log.Fatalf("failed to serve: %v", err)
 	}
+}
+
+// Wait for interrupt signal to gracefully shutdown the server
+func waitForShutdown(s *grpc.Server) {
+	// Create a channel to receive OS signals
+	sigs := make(chan os.Signal, 1)
+	// Create a channel to receive a signal when server shutdown is complete
+	done := make(chan bool, 1)
+
+	// Register to receive specific signals
+	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
+
+	// Start a goroutine that will listen for signals
+	go func() {
+		sig := <-sigs
+		log.Printf("Received signal: %s", sig)
+
+		// Perform server shutdown
+		log.Println("Shutting down server...")
+		s.GracefulStop() // Gracefully stop the server
+		log.Println("Server has been shut down.")
+
+		// Notify the main goroutine that we're done
+		done <- true
+	}()
+
+	// Wait for shutdown to complete
+	<-done
+	log.Println("Graceful shutdown completed")
 }
