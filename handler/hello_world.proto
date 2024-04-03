@@ -42,3 +42,28 @@ message HelloResponse {
     google.rpc.Status error = 2; // The error status on failure.
   }
 }
+
+// PingService provides a method for checking the latency.
+service PingService {
+  // Ping receives a PingRequest and returns a PingResponse 
+  // with latency information.
+  rpc Ping (PingRequest) returns (PingResponse) {
+    option (google.api.http) = {
+      get: "/ping"
+    };
+  }
+}
+
+// PingRequest is the request for a latency check.
+message PingRequest {
+}
+
+// PingResponse contains the latency information.
+message PingResponse {
+  // The latency in microseconds.
+  int64 latency_microseconds = 1;
+  // The formatted latency string.
+  string formatted_latency = 2;
+  // The formatted latency string in milliseconds.
+  string formatted_latency_milliseconds = 3;
+}
