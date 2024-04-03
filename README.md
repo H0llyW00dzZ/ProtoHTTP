@@ -14,10 +14,10 @@ These instructions will get your copy of the project up and running on your loca
 
 ### Prerequisites
 
-- Go (1.22 or higher)
-- Protocol Buffer Compiler (`protoc`)
-- gRPC Go Plugin
-- gRPCurl (for testing)
+- [Go](https://go.dev/dl/) (1.22 or higher)
+- [Protocol Buffer Compiler](https://protobuf.dev/downloads/) (`protoc`)
+- [gRPC Go Plugin](https://github.com/grpc/grpc-go)
+- [gRPCurl](https://github.com/fullstorydev/grpcurl) (for testing)
 
 ### Installing
 
