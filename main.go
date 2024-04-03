@@ -56,8 +56,6 @@ func (s *pingServer) Ping(ctx context.Context, req *handler.PingRequest) (*handl
 	// Simulate work or a delay; you can remove this in a real-world scenario.
 	time.Sleep(100 * time.Millisecond)
 
-	// Since we're measuring the server response time, we don't introduce any artificial delay.
-
 	// Calculate the latency
 	latency := time.Since(startTime)
 
