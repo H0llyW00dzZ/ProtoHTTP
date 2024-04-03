@@ -66,6 +66,12 @@ Call the `SayHelloWithField` method:
 grpcurl -plaintext -d '{"name": "Gopher"}' localhost:50051 redirect.HelloService/SayHelloWithField
 ```
 
+Call the `Ping` method:
+
+```sh
+grpcurl -plaintext -d '{}' localhost:50051 redirect.PingService/Ping
+```
+
 You should receive a response like:
 
 For `SayHello`:
@@ -81,6 +87,16 @@ For `SayHelloWithField`:
 ```json
 {
   "message": "Hello, Gopher!"
+}
+```
+
+For `Ping`:
+
+```json
+{
+  "latencyMicroseconds": "101579",
+  "formattedLatency": "101579 µs",
+  "formattedLatencyMilliseconds": "101.58 ms"
 }
 ```
 
