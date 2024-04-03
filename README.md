@@ -1,4 +1,12 @@
-# ProtoHTTP
+<pre>
+   ______      ____             __        __  __________________ 
+  / ____/___  / __ \_________  / /_____  / / / /_  __/_  __/ __ \
+ / / __/ __ \/ /_/ / ___/ __ \/ __/ __ \/ /_/ / / /   / / / /_/ /
+/ /_/ / /_/ / ____/ /  / /_/ / /_/ /_/ / __  / / /   / / / ____/     Example
+\____/\____/_/   /_/   \____/\__/\____/_/ /_/ /_/   /_/ /_/      
+                                                                 
+Copyright (©️) 2024 @H0llyW00dzZ All rights reserved.
+</pre>
 
 ProtoHTTP is a simple gRPC server implementation in Go that responds with a "Hello, World!" message. This project serves as an example of how to set up a gRPC service with Go, including server reflection for tooling support.
 
