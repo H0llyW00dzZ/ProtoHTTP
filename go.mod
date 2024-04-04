@@ -1,6 +1,6 @@
 module github.com/H0llyW00dzZ/ProtoHTTP
 
-go 1.22.1
+go 1.22.2
 
 require (
 	google.golang.org/genproto/googleapis/api v0.0.0-20240401170217-c3f982113cda
